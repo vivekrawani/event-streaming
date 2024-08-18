@@ -1,0 +1,14 @@
+spin up a kakfa container, -> docker run -p 9092:9092 apache/kafka
+if creating a new container -> 
+                            docker ps
+                            docker exec -it container_id /bin/bash
+                            cd /opt/kafka/bin
+
+                            Then create a new topic 
+                            ./kafka-topics.sh --create --topic [topic name] --bootstrap-server localhost:9092
+
+                            u can produce event from the bash
+                            ./kafka-console-producer.sh --topic [topic-name] --bootstrap-server localhost:9092
+
+                            u can consumer events from the bash
+                            ./kafka-console-consumer.sh --topic quickstart-events --from-beginning --bootstrap-server localhost:9092
