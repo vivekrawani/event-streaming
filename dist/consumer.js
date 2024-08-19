@@ -19,7 +19,7 @@ function main() {
     return __awaiter(this, void 0, void 0, function* () {
         yield consumer.connect();
         yield consumer.subscribe({
-            topic: "demo-events", fromBeginning: true
+            topic: "payment-done", fromBeginning: true
         });
         yield consumer.run({
             eachMessage: (_a) => __awaiter(this, [_a], void 0, function* ({ topic, partition, message }) {
@@ -27,6 +27,8 @@ function main() {
                 console.log({
                     offset: message.offset,
                     value: (_b = message === null || message === void 0 ? void 0 : message.value) === null || _b === void 0 ? void 0 : _b.toString(),
+                    topic,
+                    partition
                 });
             }),
         });

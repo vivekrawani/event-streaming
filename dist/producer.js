@@ -10,20 +10,28 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const kafkajs_1 = require("kafkajs");
+var count = 0;
 const kafka = new kafkajs_1.Kafka({
     clientId: "my-app",
     brokers: ["localhost:9092"]
 });
 const producer = kafka.producer();
-function main() {
+function main(key, userId) {
     return __awaiter(this, void 0, void 0, function* () {
         yield producer.connect();
+        console.log("user : ", userId, "key : ", key);
         yield producer.send({
-            topic: "quickstart-events",
+            topic: "payment-done",
             messages: [{
-                    value: "hi there this is a new message"
+                    value: `hi there ${key} `,
+                    key: `user ${userId}`
                 }]
         });
     });
 }
-main();
+setInterval(() => {
+    count++;
+    const userId = Math.floor(Math.random() * 10);
+    main(count, userId);
+}, 1000);
+// main();

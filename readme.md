@@ -12,7 +12,7 @@ If you want to build a system where one process produces events that can be cons
 Clone the project
 
 ```bash
-  git clone https://github.com/vivekrawani/{}
+  git clone https://github.com/vivekrawani/event-streaming.git
 ```
 
 run kafka container in docker
@@ -53,7 +53,13 @@ Start the server
 
 ## Tech Stack
 
-**Client:** React, Redux, TailwindCSS
 
-**Server:** Node, Express
+**Server:** Node, kafka 
 
+Partitions in kafka
+```bash
+        ./kafka-topics.sh --create --topic payment-done --partitions 3 --bootstrap-server localhost:9092
+```
+
+create 1 produce process and 3 consumer processes 
+and then reduce the number of consumer and see the rebalancing

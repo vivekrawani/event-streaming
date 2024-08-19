@@ -11,7 +11,7 @@ const consumer = kafka.consumer({ groupId: "my-app3" });
 async function main() {
   await consumer.connect();
   await consumer.subscribe({
-    topic: "quickstart-events", fromBeginning: true
+    topic: "payment-done", fromBeginning: true
   })
 
   await consumer.run({
@@ -19,6 +19,8 @@ async function main() {
       console.log({
         offset: message.offset,
         value: message?.value?.toString(),
+        topic,
+        partition
       })
     },
   })

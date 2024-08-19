@@ -1,5 +1,5 @@
 import { Kafka } from "kafkajs";
-
+var count = 0;
 const kafka = new Kafka({
   clientId: "my-app",
   brokers: ["localhost:9092"]
@@ -7,15 +7,24 @@ const kafka = new Kafka({
 
 const producer = kafka.producer();
 
-async function main() {
+async function main(key : number, userId : number) {
   await producer.connect();
+  console.log("user : ", userId, "key : ", key)
   await producer.send({
-    topic: "quickstart-events",
+    topic: "payment-done",
     messages: [{
-      value: "hi there this is a new message"
+      value: `hi there ${key} `,
+      key: `user ${userId}`
     }]
   });
 }
 
 
-main();
+
+setInterval(()=> {
+count++;
+const userId = Math.floor(Math.random() *10)
+main(count, userId)
+}, 1000)
+
+// main();
